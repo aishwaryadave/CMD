@@ -4,6 +4,7 @@ import java.net.http.HttpResponse;
 import java.security.Principal;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,15 @@ public class AuthenticateController {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 	@Autowired
-    private JwtUtil jwtUtil;
+	private JwtUtil jwtUtil;
+
 	@PostMapping("/generate-token")
-	public String generateToken(@RequestParam("username") String username, @RequestParam("password") String password, Model model,Principal principal, HttpSession session) throws Exception{
+	public String generateToken(@RequestParam("username") String username, @RequestParam("password") String password,
+			Model model, Principal principal, HttpSession session, HttpServletResponse response) throws Exception {
 		try {
-			
+
 			authenticate(username, password);
-			
+
 		} catch (UsernameNotFoundException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -46,31 +49,34 @@ public class AuthenticateController {
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 		String token = this.jwtUtil.generateToken(userDetails);
 		session.setAttribute("token", token);
-		
-		//Cookie cookie = new Cookie("token",token);
-		//Token token1= new Token(token);
-		
+		Cookie cookie = new Cookie("token",token);
+		 response.addCookie(cookie);
+
+		// Cookie cookie = new Cookie("token",token);
+		// Token token1= new Token(token);
+
 		return "success-login";
-		
+
 	}
+
 	private void authenticate(String username, String password) throws Exception {
-		
+
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
 			// TODO: handle exception
-			//e.printStackTrace();
-			//System.out.println("User is disabled!");
-			throw new Exception("USER DISABLED "+e.getMessage());
-		}catch (BadCredentialsException e) {
+			// e.printStackTrace();
+			// System.out.println("User is disabled!");
+			throw new Exception("USER DISABLED " + e.getMessage());
+		} catch (BadCredentialsException e) {
 			// TODO: handle exception
-			throw new Exception("INVALID CREDENTIALS "+e.getMessage());
+			throw new Exception("INVALID CREDENTIALS " + e.getMessage());
 		}
 	}
 
 	@GetMapping("/current-user")
 	public User getCurrentUser(Principal principal) {
-		return ((User)this.userDetailsService.loadUserByUsername(principal.getName()));
-		
+		return ((User) this.userDetailsService.loadUserByUsername(principal.getName()));
+
 	}
 }

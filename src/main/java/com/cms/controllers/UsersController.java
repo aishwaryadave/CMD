@@ -63,7 +63,7 @@ public class UsersController {
 		return "normal/add_contact_form";
 	}
 	@PostMapping("/process-contact")
-	public String processContact(@ModelAttribute Contact contact,@RequestParam("profileImage") MultipartFile file, Principal principal, HttpSession session)
+	public String processContact(@ModelAttribute Contact contact, Principal principal, HttpSession session)
 	{
 			try{String name= principal.getName();
 		User user = this.userRepository.findByUsername(name).get();
@@ -132,7 +132,7 @@ public class UsersController {
 		return "normal/update_form";
 	}
 	@RequestMapping(value="/process-update",method=RequestMethod.POST)
-	public String updateHandler(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file, Model m, HttpSession session, Principal principal) {
+	public String updateHandler(@ModelAttribute Contact contact, Model m, HttpSession session, Principal principal) {
 		try {
 			Contact oldcontactDetail = this.contactRepository.findById(contact.getcId()).get();
 			

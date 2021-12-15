@@ -36,8 +36,8 @@ public class Contact {
 	}
 	@Override
 	public String toString() {
-		return "Contact [cId=" + cId + ", name=" + name + ", email=" + email + ", phone=" + phone + ", user=" + user
-				+ "]";
+		return "Contact [cId=" + cId + ", name=" + name + ", email=" + email + ", phone=" + phone + 
+				"]";
 	}
 	public int getcId() {
 		return cId;
