@@ -27,7 +27,7 @@ public class ContactsController {
 	}  
 	//creating a get mapping that retrieves the detail of a specific book  
 	@GetMapping("/contacts/{contactid}")  
-	private Contact getBooks(@PathVariable("contactid") int contactid)   
+	private Contact getContacts(@PathVariable("contactid") int contactid)   
 	{  
 	return contactsService.getContactsById(contactid);  
 	}  

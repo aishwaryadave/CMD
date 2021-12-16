@@ -62,6 +62,20 @@ public class UsersController {
 		model.addAttribute("contact", new Contact());
 		return "normal/add_contact_form";
 	}
+	
+	@GetMapping("/settings")
+	public String settings(Model model) {
+		model.addAttribute("title", "Settings");
+		
+		return "normal/settings";
+	}
+	
+	@GetMapping("/profile")
+	public String profile(Model model) {
+		model.addAttribute("title", "My Profile");
+		
+		return "normal/profile";
+	}
 	@PostMapping("/process-contact")
 	public String processContact(@ModelAttribute Contact contact, Principal principal, HttpSession session)
 	{
