@@ -39,6 +39,10 @@ public class ContactsService {
 	public void update(Contact contact, int contactid)   
 	{  
 	contactsRepository.save(contact);  
+	} 
+	public Contact save(Contact contact)   
+	{  
+     return contactsRepository.save(contact);  
 	}  
 
 }
