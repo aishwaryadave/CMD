@@ -17,13 +17,17 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cms.entities.Contact;
 import com.cms.entities.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@Commit
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 class ContactsRepositoryTest {
 
@@ -34,6 +38,7 @@ class ContactsRepositoryTest {
 	private UserRepository userRepository;
 
 	@Test
+	@DirtiesContext
 	public void saveContactsTest() {
 		Contact contact = new Contact();
 		contact.setName("Contact100");

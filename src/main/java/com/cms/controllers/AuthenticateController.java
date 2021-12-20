@@ -4,10 +4,16 @@ import java.net.http.HttpResponse;
 import java.security.Principal;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -33,10 +39,16 @@ public class AuthenticateController {
 	private UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	public String token;
+
+
+
+
 
 	@PostMapping("/generate-token")
 	public String generateToken(@RequestParam("username") String username, @RequestParam("password") String password,
-			Model model, Principal principal, HttpSession session, HttpServletResponse response) throws Exception {
+			Model model, Principal principal, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		try {
 
 			authenticate(username, password);
@@ -47,7 +59,9 @@ public class AuthenticateController {
 			throw new Exception("User not found!");
 		}
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-		String token = this.jwtUtil.generateToken(userDetails);
+		
+		 token = this.jwtUtil.generateToken(userDetails);
+		
 		session.setAttribute("token", token);
 		Cookie cookie = new Cookie("token",token);
 		 response.addCookie(cookie);
@@ -55,7 +69,7 @@ public class AuthenticateController {
 		// Cookie cookie = new Cookie("token",token);
 		// Token token1= new Token(token);
 
-		return "success-login";
+		return "redirect:/user/index";
 
 	}
 
