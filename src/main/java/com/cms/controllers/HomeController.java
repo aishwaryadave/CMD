@@ -60,6 +60,8 @@ public class HomeController {
 	private JwtUtil jwtUtil;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private AuthenticateController authenticateController;
 
 	@RequestMapping("/")
 	public String home() {
@@ -99,6 +101,8 @@ public class HomeController {
 
 	@RequestMapping("/login")
 	public String login(Model model) {
+		authenticateController.token="";
+		
 		model.addAttribute("title", "Signin- Smart Contact Manager");
 
 		return "login";
