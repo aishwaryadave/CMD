@@ -95,7 +95,7 @@ public class UsersController {
 		
 		
 	
-		return "normal/add_contact_form";	
+		return "redirect:/user/show-contacts/0";	
 	}
 	@GetMapping("/show-contacts/{page}")
 	public String showContacts(@PathVariable("page") Integer page,Model m, Principal principal) {
