@@ -22,6 +22,13 @@
     <artifactId>jjwt</artifactId>
     <version>0.9.1</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/com.azure.spring/azure-spring-boot -->
+<dependency>
+    <groupId>com.azure.spring</groupId>
+    <artifactId>azure-spring-boot</artifactId>
+    <version>3.12.0</version>
+</dependency>
+
 <!--  <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-config</artifactId>
