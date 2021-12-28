@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	@Autowired
 	private AuthenticateController authenticateController;
 	
-	private static String URI = "https://cmsaishwaryawebapp.azurewebsites.net/";
+	private static String URI = "https://cmsaishwaryawebapp.azurewebsites.net";
 	
 	
 	
