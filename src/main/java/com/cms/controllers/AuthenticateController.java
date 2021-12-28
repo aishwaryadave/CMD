@@ -1,6 +1,6 @@
 package com.cms.controllers;
 
-import java.net.http.HttpResponse;
+
 import java.security.Principal;
 
 import javax.servlet.http.Cookie;
@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
+
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cms.config.JwtUtil;
 import com.cms.entities.User;
-import com.cms.helper.Token;
+
 import com.cms.services.UserDetailsServiceImpl;
 
 @Controller

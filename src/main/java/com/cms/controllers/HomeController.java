@@ -2,52 +2,51 @@ package com.cms.controllers;
 
 import java.net.URI;
 
-import java.net.http.HttpResponse;
-import java.util.Optional;
 
-import javax.net.ssl.SSLSession;
-import javax.servlet.http.Cookie;
+
+
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.cms.entities.User;
 
-import org.hibernate.sql.ordering.antlr.GeneratedOrderByFragmentRendererTokenTypes;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+
+
+
+
+
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+
+
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+
+
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
+
+
+
 
 import com.cms.config.JwtUtil;
 import com.cms.dao.UserRepository;
-import com.cms.entities.JwtRequest;
-import com.cms.entities.JwtResponse;
+
+
 import com.cms.services.UserDetailsServiceImpl;
 
-import com.cms.entities.User;
+
 
 @Controller
 public class HomeController {
