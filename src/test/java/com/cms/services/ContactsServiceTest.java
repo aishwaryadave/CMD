@@ -1,6 +1,7 @@
 package com.cms.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,12 +10,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.cms.dao.ContactsRepository;
 import com.cms.dao.UserRepository;
+
 import com.cms.entities.Contact;
 import com.cms.entities.User;
 
@@ -57,8 +60,7 @@ class ContactsServiceTest {
 	public void updateContactTest() {
 		User user = new User(1004, "User1004", "user1004@gmail.com", "user1004", "10041004", null);
 		Contact contact = new Contact(2004, "Contact2004", "contact2004@gmail.com", "2004200444", user);
-
-		when(contactsRepository.save(contact)).thenReturn(contact);
+                when(contactsRepository.save(contact)).thenReturn(contact);
 		contact.setEmail("contact2400@gmail.com");
 		contactsService.update(contact, 2004);
 		verify(contactsRepository, times(1)).save(contact);
