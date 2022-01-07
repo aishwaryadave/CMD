@@ -35,11 +35,6 @@ public class Contact {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Contact [cId=" + cId + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
-	}
-
 	public int getcId() {
 		return cId;
 	}
@@ -78,6 +73,11 @@ public class Contact {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@Override
+	public String toString() {
+		return "Contact [cId=" + cId + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
 	}
 
 }
