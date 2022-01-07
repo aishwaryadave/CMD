@@ -1,17 +1,16 @@
 
 package com.cms.dao;
 
-
-
-
 import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -21,12 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cms.entities.User;
 
-
-// @DataJpaTest
-// @AutoConfigureTestDatabase(replace = Replace.NONE)
-// @DataJpaTest
-// @AutoConfigureTestDatabase(replace = Replace.AUTO_CONFIGURED)
-
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
@@ -35,8 +28,7 @@ class UserRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	// @Rollback(value = false)
+	
 	@Test
 	@Order(1)
 	public void saveUserTest() {
@@ -74,8 +66,7 @@ class UserRepositoryTest {
 		expectedUser.setPassword("222222");
 		expectedUser.setContacts(null);
 		userRepository.save(expectedUser);
-
-		expectedUser.setEmail("user2222@gmail.com");
+                expectedUser.setEmail("user2222@gmail.com");
 		User userUpdated = userRepository.save(expectedUser);
 		Assertions.assertThat(expectedUser.getEmail()).isEqualTo("user2222@gmail.com");
 
@@ -84,25 +75,14 @@ class UserRepositoryTest {
 	@Test
 	@Order(5)
 	public void deleteUserTest() {
-
-		User expectedUser = new User();
-
-		expectedUser.setName("User23");
-
-		expectedUser.setUsername("user23");
+                User expectedUser = new User();
+                expectedUser.setName("User23");
+                expectedUser.setUsername("user23");
 		expectedUser.setEmail("user23@gmail.com");
 		expectedUser.setPassword("232323");
 		expectedUser.setContacts(null);
 		User user = userRepository.save(expectedUser);
-		// System.out.println(user);
-		// System.out.println(userRepository.findById(user.getId()).get());
-
 		userRepository.delete(expectedUser);
-
-		// assertEquals(userRepository.findById(user.getId()).get(), null);
-		// Assertions.assertThat(userRepository.findById(user.getId()).get()).isEqualTo(null);
-		// User user= userRepository.findById(6).get();
-		// userRepository.delete(user);
 		User user1 = null;
 		Optional<User> optionalUser = userRepository.findByUsername("user23");
 		if (optionalUser.isPresent()) {
