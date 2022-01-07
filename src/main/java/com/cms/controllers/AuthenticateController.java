@@ -1,16 +1,11 @@
 package com.cms.controllers;
 
-
 import java.security.Principal;
-
+ 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,13 +15,17 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cms.config.JwtUtil;
+
 import com.cms.entities.User;
 
 import com.cms.services.UserDetailsServiceImpl;
@@ -39,14 +38,9 @@ public class AuthenticateController {
 	private UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	private JwtUtil jwtUtil;
-	
 	public String token;
 
-
-
-
-
-	@PostMapping("/generate-token")
+        @PostMapping("/generate-token")
 	public String generateToken(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, Principal principal, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		try {
@@ -59,15 +53,10 @@ public class AuthenticateController {
 			throw new Exception("User not found!");
 		}
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-		
-		 token = this.jwtUtil.generateToken(userDetails);
-		
+		token = this.jwtUtil.generateToken(userDetails);
 		session.setAttribute("token", token);
 		Cookie cookie = new Cookie("token",token);
-		 response.addCookie(cookie);
-
-		// Cookie cookie = new Cookie("token",token);
-		// Token token1= new Token(token);
+	        response.addCookie(cookie);
 
 		return "redirect:/user/index";
 
@@ -78,12 +67,8 @@ public class AuthenticateController {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
-			// TODO: handle exception
-			// e.printStackTrace();
-			// System.out.println("User is disabled!");
 			throw new Exception("USER DISABLED " + e.getMessage());
 		} catch (BadCredentialsException e) {
-			// TODO: handle exception
 			throw new Exception("INVALID CREDENTIALS " + e.getMessage());
 		}
 	}
