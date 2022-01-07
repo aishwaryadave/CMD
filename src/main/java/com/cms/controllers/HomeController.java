@@ -2,47 +2,31 @@ package com.cms.controllers;
 
 import java.net.URI;
 
-
-
-
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 
 import com.cms.entities.User;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-
-
-
 
 import org.springframework.security.authentication.AuthenticationManager;
 
-
-
-
-
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-
-
 import com.cms.config.JwtUtil;
-import com.cms.dao.UserRepository;
 
+import com.cms.dao.UserRepository;
 
 import com.cms.services.UserDetailsServiceImpl;
 
@@ -73,37 +57,16 @@ public class HomeController {
 	}
 
 	@RequestMapping("/private")
-	public String show(@CookieValue("token") String token,
-			HttpServletResponse response/* @RequestHeader(name = "Authorization",value = "Bearer "+token) */) {
-
-		System.out.println(token);
-		// HttpHeaders headers = new HttpHeaders();
-		// headers.set("Authorization", "Bearer " + token);
-		response.addHeader("Authorization", "Bearer " + token);
-
-		// add basic authentication header
-
-		// build the request
-		// System.out.println(session.getAttribute("token"));
-
-		// HttpHeaders headers = request.getHeaders();
-		// headers.add("Authorization", "Bearer "+token);
-
-		// System.out.println(response.headers());
+	public String show(@CookieValue("token") String token, HttpServletResponse response) {
+                response.addHeader("Authorization", "Bearer " + token);
 		return "private";
 
 	}
-	// @RequestMapping("/secret")
-	// public String secret() {
-	// return "private";
-	// }
 
 	@RequestMapping("/login")
 	public String login(Model model) {
 		authenticateController.token="";
-		
 		model.addAttribute("title", "Signin- Smart Contact Manager");
-
 		return "login";
 
 	}
@@ -121,31 +84,22 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
-	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result1, Model model,
-			HttpSession session) {
+	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result1, Model model, HttpSession session) {
 		try {
-
-			if (result1.hasErrors()) {
-
-				System.out.println("Errors " + result1.toString());
+                        if (result1.hasErrors()) {
 				model.addAttribute("user", user);
 				return "signup";
 			}
 
 			user.setUsername(user.getUsername());
 			user.setPassword(user.getPassword());
-
-			System.out.println("User: " + user);
 			this.userRepository.save(user);
 			model.addAttribute("user", new User());
-
-			return "signup";
+                        return "signup";
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			model.addAttribute("user", user);
-
-			return "signup";
+                        return "signup";
 		}
 
 	}
